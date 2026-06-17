@@ -176,13 +176,13 @@ body::before {
 }
 
 .navbar__logo-img {
-  height: 36px;
-  width: 36px;
+  height: 46px;
+  width: 46px;
   object-fit: contain;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   background: #000000;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .navbar__logo-text span { color: var(--accent-gold); }
