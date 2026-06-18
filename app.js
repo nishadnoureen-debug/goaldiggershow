@@ -118,6 +118,7 @@ const heroParticles  = document.getElementById('hero-particles');
 
 // ── Render Founders ────────────────────────────────────────────
 function renderFounders(filter = 'All') {
+  if (!storiesGrid) return;
   const filtered = filter === 'All'
     ? founders
     : founders.filter(f => f.industry === filter);
@@ -217,10 +218,12 @@ function closeModal() {
   activeFounderId = null;
 }
 
-modalClose.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', e => {
-  if (e.target === modalOverlay) closeModal();
-});
+if (modalClose) modalClose.addEventListener('click', closeModal);
+if (modalOverlay) {
+  modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) closeModal();
+  });
+}
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && activeFounderId) closeModal();
   if (e.key === 'Escape' && isMenuOpen) toggleMenu();
@@ -254,7 +257,7 @@ function toggleMenu() {
   }
 }
 
-hamburger.addEventListener('click', toggleMenu);
+if (hamburger) hamburger.addEventListener('click', toggleMenu);
 
 document.querySelectorAll('.mobile-menu__link').forEach(link => {
   link.addEventListener('click', () => {
@@ -263,18 +266,20 @@ document.querySelectorAll('.mobile-menu__link').forEach(link => {
 });
 
 // ── Form Submission ────────────────────────────────────────────
-submitForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const btn = submitForm.querySelector('.form-submit-btn');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
+if (submitForm) {
+  submitForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = submitForm.querySelector('.form-submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
 
-  // Simulate async submission
-  setTimeout(() => {
-    submitForm.style.display = 'none';
-    formSuccess.classList.add('show');
-  }, 1600);
-});
+    // Simulate async submission
+    setTimeout(() => {
+      submitForm.style.display = 'none';
+      if (formSuccess) formSuccess.classList.add('show');
+    }, 1600);
+  });
+}
 
 // ── Scroll Reveal ──────────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {
