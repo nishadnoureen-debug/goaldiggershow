@@ -1,386 +1,627 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Goal Digger — UAE Founders' Stories</title>
-  <meta name="description" content="Goal Digger presents raw, honest stories of UAE founders who built empires from nothing. The hard part creates real founders. Built by ambition, not luck." />
-  <meta property="og:title" content="Goal Digger — UAE Founders' Stories" />
-  <meta property="og:description" content="Goal Digger presents raw, honest stories from the founders who shaped the UAE startup ecosystem." />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Goal Digger — UAE Founders' Stories" />
-  <meta name="twitter:description" content="The hard part creates real founders. Built by ambition, not luck." />
-  <link rel="icon" type="image/png" href="assets/logo_circle.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goal Digger Show | Built by Ambition. Not by Luck.</title>
+<meta name="description" content="You've seen the skyline. Now hear how it was built. Honest conversations with the founders building the UAE.">
+<meta name="theme-color" content="#060608">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Goal Digger Show | Built by Ambition. Not by Luck.">
+<meta property="og:description" content="You've seen the skyline. Now hear how it was built. Honest conversations with the founders building the UAE.">
+<meta property="og:image" content="https://goaldiggershow.vercel.app/assets/og.jpg">
+<meta property="og:url" content="https://goaldiggershow.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ---------- hero: the scrub ---------- */
+.hero{position:relative;height:540vh}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--canvas)}
+.poster,.stage video{position:absolute;inset:0;width:100%;height:100%}
+.poster{background-size:cover;background-position:center;background-color:var(--canvas)}
+.stage video{object-fit:cover;opacity:0;transition:opacity .8s var(--ease);will-change:transform;transform:translateZ(0)}
+.stage.video-ready video{opacity:1}
+.stage.video-failed video{display:none}
+.scrim{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 45%,rgba(10,10,18,0) 35%,rgba(10,10,18,.62) 100%)}
+.stage::after{content:"";position:absolute;inset:auto 0 0;height:22vh;pointer-events:none;background:linear-gradient(rgba(6,6,8,0),rgba(6,6,8,.55))}
+
+.band{position:absolute;z-index:2;opacity:0;text-shadow:var(--tshadow);pointer-events:none}
+.band.on{pointer-events:auto}
+.band::before{content:"";position:absolute;inset:-60% -45%;z-index:-1;pointer-events:none;opacity:calc(.25 + .75*var(--k,1));background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(5,5,10,var(--sa,.66)) 0%,rgba(5,5,10,calc(var(--sa,.66)*.85)) 50%,rgba(5,5,10,0) 98%)}
+.band .btn{text-shadow:none}
+.band h1,.band h2,.band p{margin:0}
+.band .gold,.hero-static .gold{text-shadow:none;background-image:var(--gold-light);filter:drop-shadow(0 2px 3px rgba(5,5,10,.9)) drop-shadow(0 6px 22px rgba(5,5,10,.7))}
+.w{display:inline-block;white-space:nowrap}
+.c{display:inline-block}
+
+.b1{left:var(--gutter);top:calc(var(--nav-h) + 6vh);--sa:.78}
+.b1 .kicker{margin-bottom:22px}
+.b1 h1{font-size:clamp(46px,6.4vw,100px);max-width:9ch}
+.b2{left:var(--gutter);top:calc(var(--nav-h) + 8vh);--sa:.84}
+.b2 p{font-size:clamp(38px,4.6vw,74px);max-width:11ch}
+.b3{left:var(--gutter);top:34vh;--sa:.92}
+.b3 .pair{display:grid}
+.b3 .pair>*{grid-area:1/1}
+.b3 p{font-size:clamp(28px,2.9vw,46px);line-height:1.08}
+.b3 p span{display:block}
+.b4{left:50%;top:calc(var(--nav-h) + 7vh);transform:translateX(-50%);text-align:center;width:min(92vw,980px);--sa:.86}
+.b4::before{inset:-40% -20% -60%;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(5,5,10,var(--sa,.66)) 0%,rgba(5,5,10,calc(var(--sa,.66)*.8)) 50%,rgba(5,5,10,0) 98%)}
+.b4 h2{font-size:clamp(50px,6.6vw,112px)}
+.b4 .sub{font-size:clamp(17px,1.45vw,21px);margin:20px auto 0;max-width:58ch;text-wrap:balance}
+.b4 .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+
+/* entrance: approach from depth (band 1) */
+.approach .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.4,1);opacity:var(--kc);transform:translateY(calc((1 - var(--kc))*.35em)) scale(calc(.82 + .18*var(--kc)))}
+.approach .kicker{opacity:clamp(0,var(--k,0)*3,1)}
+/* entrance: drift-down (band 2) */
+.drift .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);opacity:var(--kc);transform:translateY(calc((1 - var(--kc))*-28px))}
+/* entrance: blur-to-sharp (band 3) */
+.focus .soft{filter:blur(10px);opacity:calc(1 - var(--k,0))}
+.focus .sharp{opacity:var(--k,0)}
+/* entrance: word-by-word rise into a staged settle (band 4) */
+.settle .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*3,1);opacity:var(--kc);transform:translateY(calc((1 - var(--kc))*.5em))}
+.settle .sub{--ks:clamp(0,(var(--k,0) - .62)*4,1);opacity:var(--ks);transform:translateY(calc((1 - var(--ks))*14px))}
+.settle .row{--kb:clamp(0,(var(--k,0) - .76)*5,1);opacity:var(--kb);transform:translateY(calc((1 - var(--kb))*14px))}
+
+.hud{position:absolute;z-index:3;left:var(--gutter);bottom:28px;display:flex;align-items:center;gap:10px;padding:9px 14px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--text-primary)}
+.chip{background:rgba(6,6,8,.6);border:1px solid rgba(255,255,255,.12);border-radius:100px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-shadow:0 1px 3px rgba(5,5,10,.85)}
+.lamp{width:8px;height:8px;border-radius:50%;background:#46506a;transition:background-color .5s var(--ease),box-shadow .5s var(--ease)}
+.hud.live .lamp{background:#ff4d5e;box-shadow:0 0 12px #ff4d5e}
+.loader{position:absolute;z-index:3;right:var(--gutter);bottom:24px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--text-secondary);transition:opacity .6s var(--ease)}
+.ring{width:40px;height:40px;color:var(--accent);transform:rotate(-90deg)}
+.ring circle{transition:stroke-dashoffset .2s linear}
+.ring .track{color:rgba(255,255,255,.12)}
+.stage.video-ready .loader .ring,.stage.video-ready .loader .lt{display:none}
+.cue{display:none;align-items:center;gap:10px}
+.stage.video-ready .cue,.stage.video-failed .cue{display:flex}
+.cue svg{width:18px;height:18px;animation:nudge 2.4s var(--ease-io) -.6s infinite}
+@keyframes nudge{50%{transform:translateY(5px)}}
+.stage.video-failed .loader .ring,.stage.video-failed .loader .lt{display:none}
+@media (max-height:560px){.hud,.loader{display:none}}
+
+/* ---------- the static hero (phones, portrait tablets, reduced motion) ---------- */
+.hero-static{display:none;position:relative;min-height:100vh;min-height:100svh;padding:calc(var(--nav-h) + 40px) var(--gutter) 56px;align-content:end;background-color:var(--canvas);background-size:cover;background-position:center 30%}
+.hero-static::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,.55) 0%,rgba(6,6,8,.2) 35%,rgba(6,6,8,.82) 72%,var(--canvas) 100%)}
+.hero-static .inner{position:relative;max-width:640px;text-shadow:var(--tshadow)}
+.hero-static h1{font-size:clamp(44px,12vw,84px);margin:20px 0 0}
+.hero-static .quote{margin:18px 0 0;font-size:17px}
+.hero-static p{margin:12px 0 0;font-size:17px;max-width:34ch}
+.hero-static .desc{color:var(--text-secondary)}
+.hero-static .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero-static .hud{position:relative;left:auto;bottom:auto;display:inline-flex;margin-bottom:20px}
+.hero-static .inner>*{animation:rise 1.1s var(--ease) both}
+.hero-static .inner>*:nth-child(2){animation-delay:.12s}
+.hero-static .inner>*:nth-child(3){animation-delay:.24s}
+.hero-static .inner>*:nth-child(4){animation-delay:.36s}
+.hero-static .inner>*:nth-child(5){animation-delay:.48s}
+.hero-static .inner>*:nth-child(6){animation-delay:.6s}
+@media (max-height:560px) and (orientation:landscape){.hero-static{padding-top:calc(var(--nav-h) + 24px);padding-bottom:32px}.hero-static h1{font-size:clamp(30px,5.4vw,46px);max-width:22ch}.hero-static p{font-size:16px;margin-top:10px}.hero-static .row{margin-top:18px}.hero-static .hud{margin-bottom:12px}}
+@media (max-width: 720px), (orientation: portrait) and (max-width: 1024px), (orientation: portrait) and (pointer: coarse), (orientation: landscape) and (pointer: coarse) and (max-height: 560px), (prefers-reduced-motion: reduce){
+  .hero{display:none}
+  .hero-static{display:grid;background-image:url("assets/hero-ending.jpg")}
+}
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="env" aria-hidden="true"></div>
+<div class="gridbg" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-  <!-- ══════════════════════════════════════════════════
-       NAVBAR
-  ══════════════════════════════════════════════════ -->
-  <header class="navbar" id="navbar" role="banner">
-    <a href="#" class="navbar__logo" aria-label="Goal Digger Show Home">
-      <img src="assets/logo_circle.png" alt="Goal Digger Logo" class="navbar__logo-img" />
-      <span class="navbar__logo-text">Goal Digger <span>Show</span></span>
-    </a>
-
-    <nav class="navbar__links" role="navigation" aria-label="Main navigation">
-      <a href="#hero" class="navbar__link" id="nav-home">Home</a>
-      <a href="stories.html" class="navbar__link" id="nav-stories">Stories</a>
-      <a href="#manifesto" class="navbar__link" id="nav-manifesto">Our Manifesto</a>
-    </nav>
-      <a href="#hero" class="navbar__cta" id="nav-cta">Home</a>
-    <button
-      class="navbar__hamburger"
-      id="hamburger"
-      aria-label="Toggle mobile menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </header>
-
-  <!-- Mobile Navigation -->
-  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-    <a href="#hero"          class="mobile-menu__link" id="mob-home">Home</a>
-    <a href="stories.html"   class="mobile-menu__link" id="mob-stories">Stories</a>
-    <a href="#manifesto"     class="mobile-menu__link" id="mob-manifesto">Our Manifesto</a>
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Goal Digger, home">
+    <img class="mark" src="assets/logo-mark.png" alt="" width="162" height="96">
+    <img class="wordmark" src="assets/logo-text.png" alt="" width="656" height="72">
+  </a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="episodes.html">Episodes</a></li>
+      <li><a href="guest.html">Be a Guest</a></li>
+      <li><a href="contact.html">Partner</a></li>
+    </ul>
   </nav>
+  <div class="nav-actions">
+    <a class="btn btn-line" href="#subscribe">Get new episodes</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mmenu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mmenu" id="mmenu" aria-label="Mobile">
+  <a href="index.html" aria-current="page">Home</a>
+  <a href="about.html">About</a>
+  <a href="episodes.html">Episodes</a>
+  <a href="guest.html">Be a Guest</a>
+  <a href="contact.html">Partner</a>
+  <a class="btn btn-accent" href="#subscribe">Get new episodes</a>
+</nav>
 
-  <main>
+<main id="main" tabindex="-1">
 
-    <!-- ══════════════════════════════════════════════════
-         HERO
-    ══════════════════════════════════════════════════ -->
-    <section class="hero" id="hero" aria-labelledby="hero-title">
+  <!-- the scrub hero (laptops and desktops) -->
+  <section class="hero" id="top" aria-label="Intro">
+    <div class="stage" id="stage">
+      <div class="poster" aria-hidden="true"></div>
+      <video id="hero" preload="none" muted playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+      <div class="scrim" aria-hidden="true"></div>
 
-      <!-- Animated background elements -->
-      <div class="hero__blob hero__blob--gold"  aria-hidden="true"></div>
-      <div class="hero__blob hero__blob--purple" aria-hidden="true"></div>
-      <div class="hero__blob hero__blob--green"  aria-hidden="true"></div>
-      <div class="hero__grid"                   aria-hidden="true"></div>
-
-      <div class="hero__content">
-
-        <div class="hero__badge" role="text">
-          <span class="hero__badge-dot" aria-hidden="true"></span>
-          Goal Digger Show
+      <div class="band b1 approach" data-a="0" data-b="0.22" data-ramp="0.03">
+        <span class="kicker badge">Goal Digger Show · UAE founders</span>
+        <h1 class="display split">You've seen the skyline.</h1>
+      </div>
+      <div class="band b2 drift" data-a="0.27" data-b="0.52">
+        <p class="display split">You haven't heard how it was built.</p>
+      </div>
+      <div class="band b3 focus" data-a="0.58" data-b="0.8" data-ramp="0.036">
+        <span class="sr-only">The bank that said no. The licence that cost double. The year it almost ended.</span>
+        <div class="pair" aria-hidden="true">
+          <p class="display soft"><span>The bank that said no.</span><span>The licence that cost double.</span><span>The year it almost ended.</span></p>
+          <p class="display sharp"><span>The bank that said no.</span><span>The licence that cost double.</span><span>The year it almost ended.</span></p>
         </div>
-
-        <h1 class="hero__title" id="hero-title">
-          Built by<br/>
-          <em>Ambition.</em><br/>
-          Not by Luck.
-        </h1>
-
-        <div class="hero__quotes" role="presentation">
-          <p class="hero__quote">
-            <span>"The hard part creates real founders"</span>
-          </p>
+      </div>
+      <div class="band b4 settle" data-a="0.84" data-b="1">
+        <h2 class="display split" data-em="Ambition." data-br="Ambition.">Built by Ambition. Not by Luck.</h2>
+        <p class="sub quote">“The hard part creates real founders”</p>
+        <div class="row">
+          <a class="btn btn-accent" href="#episodes">Watch the latest episode <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="btn btn-ghost" href="#subscribe">Get new episodes</a>
         </div>
-
-        <p class="hero__description">
-          Honest stories from the founders who shaped the UAE's startup landscape.
-          No sanitised PR. No overnight success myths. Just the real journey —
-          the sleepless nights, the impossible pivots, and the relentless ambition.
-        </p>
-
-        <div class="hero__actions">
-          <a href="stories.html" class="btn-primary" id="hero-read-btn">Read the Stories</a>
-          
-        </div>
-
       </div>
 
-      <div class="hero__scroll-hint" aria-hidden="true">
-        <div class="hero__scroll-mouse"></div>
-        <span>Scroll</span>
-      </div>
-
-    </section>
-
-    <!-- ══════════════════════════════════════════════════
-         MARQUEE TICKER
-    ══════════════════════════════════════════════════ -->
-    <div class="marquee-section" aria-hidden="true">
-      <div class="marquee-track">
-        <span class="marquee-item"><span class="marquee-dot"></span>The Hard Part Creates Real Founders</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Built by Ambition, Not Luck</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>UAE Startup Stories</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>MENA Founders</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Dubai · Abu Dhabi · Sharjah</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Real Struggles. Real Wins.</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>The Hard Part Creates Real Founders</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Built by Ambition, Not Luck</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>UAE Startup Stories</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>MENA Founders</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Dubai · Abu Dhabi · Sharjah</span>
-        <span class="marquee-item"><span class="marquee-dot"></span>Real Struggles. Real Wins.</span>
+      <div class="hud chip" aria-hidden="true"><i class="lamp"></i><span class="hudtxt">ON AIR IN 6S</span></div>
+      <div class="loader" aria-hidden="true">
+        <span class="lt">LOADING THE FILM</span>
+        <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/></svg>
+        <span class="cue">SCROLL TO GO INSIDE <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v11M4 9l4 4 4-4"/></svg></span>
       </div>
     </div>
+  </section>
 
-
-
-    <!-- ══════════════════════════════════════════════════
-         MANIFESTO SECTION
-    ══════════════════════════════════════════════════ -->
-    <section class="section manifesto-section" id="manifesto" aria-labelledby="manifesto-title">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">Our Manifesto</span>
-          <h2 class="section-title" id="manifesto-title">
-            Why the Hard Part Matters
-          </h2>
-        </div>
-
-        <div class="manifesto-grid">
-
-          <!-- Left: Pillars -->
-          <div class="manifesto-left">
-
-            <div class="manifesto-pillar" id="pillar-1">
-              <div class="manifesto-pillar__number" aria-hidden="true">01</div>
-              <div>
-                <h3 class="manifesto-pillar__title">Struggle is the Curriculum</h3>
-                <p class="manifesto-pillar__text">
-                  No MBA teaches what a rejected bank loan, a near-zero runway, or a failed product launch teaches. The hard moments are not interruptions to the founder's education — they are the education.
-                </p>
-              </div>
-            </div>
-
-            <div class="manifesto-pillar" id="pillar-2">
-              <div class="manifesto-pillar__number" aria-hidden="true">02</div>
-              <div>
-                <h3 class="manifesto-pillar__title">Ambition is Infrastructure</h3>
-                <p class="manifesto-pillar__text">
-                  The UAE's greatest asset isn't oil or geography — it's the density of people who arrived here with nothing but ambition and built something from nothing. Ambition is what this country is made of.
-                </p>
-              </div>
-            </div>
-
-            <div class="manifesto-pillar" id="pillar-3">
-              <div class="manifesto-pillar__number" aria-hidden="true">03</div>
-              <div>
-                <h3 class="manifesto-pillar__title">Stories Change Systems</h3>
-                <p class="manifesto-pillar__text">
-                  Every founder who tells the real version of their story — not the highlight reel — gives permission to every aspiring founder to start. This platform exists to make the real story the loud story.
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Right: Quote card + stats -->
-          <div class="manifesto-right reveal-right">
-
-            <div class="manifesto-quote-card">
-              <p class="manifesto-quote-card__text">
-                "The hard part doesn't break real founders.<br/>
-                It <em class="text-gradient-gold">builds</em> them."
-              </p>
-              <div class="manifesto-quote-card__meta">
-                <div class="manifesto-quote-card__line" aria-hidden="true"></div>
-                <span class="manifesto-quote-card__source">UAE Founders' Stories Manifesto</span>
-              </div>
-            </div>
-
-            <div class="manifesto-stats" role="list" aria-label="UAE startup ecosystem statistics">
-
-              <div class="stat-item" role="listitem">
-                <span
-                  class="stat-number"
-                  id="stat-unicorns"
-                  data-target="12"
-                  data-suffix="+"
-                  aria-label="12 or more unicorns"
-                >0</span>
-                <span class="stat-label">UAE Unicorns</span>
-              </div>
-
-              <div class="stat-item" role="listitem">
-                <span
-                  class="stat-number"
-                  id="stat-funding"
-                  data-target="5"
-                  data-suffix="B+"
-                  aria-label="5 billion dollars or more in funding"
-                >0</span>
-                <span class="stat-label">VC Funding (USD)</span>
-              </div>
-
-              <div class="stat-item" role="listitem">
-                <span
-                  class="stat-number"
-                  id="stat-nationalities"
-                  data-target="196"
-                  data-suffix=""
-                  aria-label="196 nationalities"
-                >0</span>
-                <span class="stat-label">Nationalities Building</span>
-              </div>
-
-            </div>
-
-
-
-          </div>
-
-        </div>
-
+  <!-- the static hero (phones, portrait tablets, reduced motion) -->
+  <section class="hero-static" aria-label="Intro" data-live>
+    <div class="inner">
+      <div class="hud chip live" aria-hidden="true"><i class="lamp"></i><span>ON AIR</span></div>
+      <span class="kicker badge">Goal Digger Show · UAE founders</span>
+      <h1 class="display">Built by <span class="gold shimmer">Ambition.</span><br>Not by Luck.</h1>
+      <p class="quote">“The hard part creates real founders”</p>
+      <p class="desc">Honest conversations with the founders building the UAE.</p>
+      <div class="row">
+        <a class="btn btn-accent" href="#episodes">Watch the latest episode</a>
       </div>
-    </section>
-
-
-
-  </main>
-
-  <!-- ══════════════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════════════ -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-
-      <div class="footer-grid">
-
-        <!-- Brand column -->
-        <div class="footer-brand">
-          <div class="footer-brand__logo">
-            <img src="assets/logo_circle.png" alt="Goal Digger Logo" class="footer__logo-img" />
-            <span>Goal Digger <span>Show</span></span>
-          </div>
-          <p class="footer-brand__tagline">
-            A platform dedicated to the honest, unfiltered stories of the founders
-            who built the UAE startup ecosystem — one hard moment at a time.
-          </p>
-          <div class="footer-social-links" aria-label="Social media links">
-            <a href="#" class="footer-social-link" id="footer-instagram" aria-label="Follow on Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            </a>
-            <a href="#" class="footer-social-link" id="footer-linkedin" aria-label="Connect on LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-            <a href="#" class="footer-social-link" id="footer-x" aria-label="Follow on X (Twitter)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Navigation column -->
-        <div class="footer-col">
-          <h3 class="footer-col__title">Navigate</h3>
-          <a href="#hero"      class="footer-col__link" id="foot-home">Home</a>
-          <a href="stories.html"   class="footer-col__link" id="foot-stories">Stories</a>
-          <a href="#manifesto" class="footer-col__link" id="foot-manifesto">Our Manifesto</a>
-          
-        </div>
-
-        <!-- Ethos column -->
-        <div class="footer-col">
-          <h3 class="footer-col__title">Ethos</h3>
-          <span class="footer-col__link">The hard part creates real founders</span>
-          <span class="footer-col__link">Built by ambition, not luck</span>
-          <span class="footer-col__link">Real stories. No PR spin.</span>
-          <span class="footer-col__link">Made in the UAE 🇦🇪</span>
-        </div>
-
-      </div>
-
-      <!-- Footer bottom bar -->
-      <div class="footer-bottom">
-        <p class="footer-copy">
-          &copy; <span id="footer-year">2024</span> Goal Digger Show. All rights reserved.
-        </p>
-        <div class="footer-uae">
-          <span>🇦🇪</span>
-          <span>Proudly rooted in the UAE</span>
-        </div>
-      </div>
-
     </div>
-  </footer>
+  </section>
 
-  <!-- ══════════════════════════════════════════════════
-       MODAL DRAWER
-  ══════════════════════════════════════════════════ -->
-  <div
-    class="modal-overlay"
-    id="modal-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modal-name"
-    aria-hidden="true"
-  >
-    <aside class="modal-drawer" id="modal-drawer">
-
-      <button class="modal-close" id="modal-close" aria-label="Close founder story">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-
-      <img
-        class="modal-hero-image"
-        id="modal-hero-image"
-        src=""
-        alt=""
-        loading="lazy"
-      />
-
-      <div class="modal-body">
-
-        <p class="modal-industry"   id="modal-industry"></p>
-        <h2 class="modal-name"      id="modal-name"></h2>
-        <p class="modal-company"    id="modal-company"></p>
-
-        <div class="modal-quote-block">
-          <p id="modal-quote"></p>
-        </div>
-
-        <p class="modal-section-label">The Hard Part</p>
-        <p class="modal-text" id="modal-hard-part"></p>
-
-        <p class="modal-section-label">The Ambition</p>
-        <p class="modal-text" id="modal-ambition"></p>
-
-        <p class="modal-section-label">Key Milestones</p>
-        <div class="modal-milestones" id="modal-milestones"></div>
-
-      </div>
-
-    </aside>
+  <div class="divider" aria-hidden="true">
+    <div data-wave="divider" data-scrub></div>
+  </div>
+  <div class="marquee" aria-hidden="true" data-live>
+    <div class="mtrack" id="mtrack">
+      <span class="marquee-item hi">The hard part creates real founders</span>
+      <span class="marquee-item">Built by ambition, not luck</span>
+      <span class="marquee-item">UAE startup stories</span>
+      <span class="marquee-item">MENA founders</span>
+      <span class="marquee-item">Dubai · Abu Dhabi · Sharjah</span>
+      <span class="marquee-item hi">Real struggles. Real wins.</span>
+      <span class="marquee-item">Real stories. No PR spin.</span>
+      <span class="marquee-item">Made in the UAE</span>
+    </div>
   </div>
 
-  <script>
-    // Set footer year dynamically
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  <!-- host -->
+  <section class="block host reveal" id="host" data-live>
+    <div class="wrap">
+      <div class="portrait part">
+        <img src="assets/host.jpg" alt="The host of Goal Digger Show in a navy suit, seated in a dark studio lit in blue" width="1280" height="1920" loading="lazy" decoding="async">
+        <div class="sweep" aria-hidden="true"></div>
+        <div class="shutter" aria-hidden="true"></div>
+        <span class="tag chip" aria-hidden="true">HOST · GOAL DIGGER SHOW</span>
+      </div>
+      <div>
+        <span class="kicker part" style="--d:1">Your host</span>
+        <h2 class="title part" style="--d:2">I ask what nobody asks on stage.</h2>
+        <p class="body part" style="--d:3"><span class="iam">I'm <strong data-host></strong>. </span>Every week I sit across from someone who built something in the UAE, and we skip the highlight reel. How much it really cost. What went wrong. What they'd do differently if they started again tomorrow.</p>
+        <div class="sign part" style="--d:4" data-needs="host"><span class="name" data-host></span><span class="role">HOST</span></div>
+        <a class="textlink part" style="--d:5" href="about.html"><span>Read the full story</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </section>
 
-    // Update modal aria-hidden state
-    const overlay = document.getElementById('modal-overlay');
-    const observer = new MutationObserver(() => {
-      overlay.setAttribute('aria-hidden', !overlay.classList.contains('open'));
+  <!-- manifesto -->
+  <section class="block manifesto reveal" id="manifesto" data-live>
+    <div class="wrap">
+      <div class="mhead">
+        <span class="kicker part">Our manifesto</span>
+        <h2 class="title part" style="--d:1">Why the hard part matters.</h2>
+      </div>
+      <figure class="mquote part" style="--d:2">
+        <blockquote><p>“The hard part doesn't break real founders. It <span class="gold shimmer">builds</span> them.”</p></blockquote>
+        <figcaption><i aria-hidden="true"></i>Goal Digger manifesto</figcaption>
+      </figure>
+      <div class="more-link part" style="--d:3"><a class="textlink" href="about.html#manifesto"><span>Read the full manifesto</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- topics -->
+  <section class="block topics reveal" id="topics" data-live>
+    <div class="wrap">
+      <div class="shead">
+        <div>
+          <span class="kicker part">What we talk about</span>
+          <h2 class="title part" style="--d:1">The questions founders actually ask.</h2>
+        </div>
+        <a class="textlink part" style="--d:2" href="episodes.html#library"><span>Browse episodes by topic</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <ol class="qlist" id="qlist">
+        <li class="part" style="--d:2"><div class="qrow"><span class="n">01</span><span class="q">Mainland or free zone?</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></li>
+        <li class="part" style="--d:3"><div class="qrow"><span class="n">02</span><span class="q">The bank said no. Now what?</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></li>
+        <li class="part" style="--d:4"><div class="qrow"><span class="n">03</span><span class="q">What year one really costs.</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></li>
+        <li class="part" style="--d:5"><div class="qrow"><span class="n">04</span><span class="q">Hiring your first five.</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></li>
+        <li class="part" style="--d:6"><div class="qrow"><span class="n">05</span><span class="q">Raising money in the region.</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></li>
+        <li class="part" style="--d:7"><div class="qrow"><span class="n">06</span><span class="q">The year it almost ended.</span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- episodes -->
+  <section class="block episodes reveal" id="episodes" data-live>
+    <div class="wrap">
+      <div class="shead">
+        <div>
+          <span class="kicker part">Episodes</span>
+          <h2 class="title part" style="--d:1">Latest conversations.</h2>
+        </div>
+        <a class="textlink part" style="--d:2" href="episodes.html"><span>See all episodes</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="grid">
+        <a class="feature part" style="--d:2" data-link="youtube" target="_blank" rel="noopener">
+          <img src="assets/host-wide.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="meta"><span>LATEST EPISODE · WATCH ON YOUTUBE</span><span class="strip" aria-hidden="true"></span></span>
+          <span class="sr-only">Watch the latest episode on YouTube</span>
+        </a>
+        <div class="listen part" style="--d:3">
+          <div>
+            <span class="kicker">Listen anywhere</span>
+            <h3>Watch it. Or take it on your drive.</h3>
+            <p>Full episodes on YouTube. The audio on Spotify and Apple Podcasts.</p>
+          </div>
+          <div class="platforms">
+            <a class="platform" data-link="youtube" target="_blank" rel="noopener"><b>YouTube</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a class="platform" data-link="spotify" target="_blank" rel="noopener"><b>Spotify</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a class="platform" data-link="apple" target="_blank" rel="noopener"><b>Apple Podcasts</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a class="platform" data-link="instagram" target="_blank" rel="noopener"><b>Instagram</b><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="more" id="more"></div>
+    </div>
+  </section>
+
+  <!-- find your way in -->
+  <section class="block reveal" id="ways" data-live>
+    <div class="wrap">
+      <div class="shead">
+        <div>
+          <span class="kicker part">Find your way in</span>
+          <h2 class="title part" style="--d:1">Three ways to be part of the show.</h2>
+        </div>
+        <p class="lede part" style="--d:2">Watch the stories, tell yours, or build something with us.</p>
+      </div>
+      <div class="ways">
+        <a class="way part" style="--d:3" href="episodes.html">
+          <img src="assets/host-wide.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="wbody"><span class="kicker">Watch and listen</span><h3>The episodes</h3><p>Every conversation, sorted by the thing you're stuck on.</p><span class="go">Browse episodes <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="way part" style="--d:4" href="guest.html">
+          <img src="assets/still-studio.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="wbody"><span class="kicker">Tell your story</span><h3>Be a guest</h3><p>Built something in the UAE? Take the seat and tell it straight.</p><span class="go">Apply to be a guest <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="way part" style="--d:5" href="contact.html">
+          <img src="assets/still-skyline.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="wbody"><span class="kicker">Build with us</span><h3>Partner with us</h3><p>Put your brand in front of the people building the UAE.</p><span class="go">Ways to partner <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section class="block faq reveal" id="faq" data-live>
+    <div class="wrap">
+      <div class="sticky">
+        <span class="kicker part">FAQ</span>
+        <h2 class="title part" style="--d:1">Straight answers.</h2>
+      </div>
+      <dl>
+        <div class="item part" style="--d:2"><dt>Where can I watch or listen?</dt><dd>Full episodes are on YouTube, and the audio is on Spotify and Apple Podcasts.</dd></div>
+        <div class="item part" style="--d:3"><dt>Is this only about Dubai?</dt><dd>No. We talk to founders building anywhere in the UAE.</dd></div>
+        <div class="item part" style="--d:4"><dt>I'm just starting out. Is this for me?</dt><dd>Yes. Most of what we cover is what founders wish they'd known in year one.</dd></div>
+        <div class="item part" style="--d:5"><dt>Can I be a guest?</dt><dd>If you've built something in the UAE and you're ready to tell it straight, we want to hear from you. <a href="guest.html">Apply to be a guest</a>.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="subscribe reveal" id="subscribe" data-live>
+    <img class="bg" src="assets/still-studio.jpg" alt="" loading="lazy" decoding="async">
+    <canvas class="dust" aria-hidden="true"></canvas>
+    <div class="wrap block subwrap">
+      <span class="kicker part">Real struggles. Real wins.</span>
+      <h2 class="title part" style="--d:1">Get new episodes first.</h2>
+      <p class="lede part" style="--d:2">One email when a new conversation drops. No spam.</p>
+      <form class="form subform part" style="--d:3" novalidate>
+        <label for="sub-email">Your email</label>
+        <div class="field">
+          <input id="sub-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+          <button class="btn btn-accent" type="submit">Get new episodes</button>
+        </div>
+        <p class="note" aria-live="polite"></p>
+      </form>
+      <div class="success" role="status">You're in. See you at the next episode.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div data-wave="footer" data-scrub></div>
+    <div class="fgrid">
+      <div class="fbrand">
+        <a class="brand brand-foot" href="index.html" aria-label="Goal Digger, home">
+          <img class="circle" src="assets/logo-circle.png" alt="" width="400" height="400" loading="lazy" decoding="async">
+        </a>
+        <p class="ftag">Honest, unfiltered stories from the founders building the UAE, one hard moment at a time.</p>
+      </div>
+      <nav class="fcol" aria-label="Footer">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="episodes.html">Episodes</a></li>
+          <li><a href="guest.html">Be a Guest</a></li>
+          <li><a href="contact.html">Partner &amp; Contact</a></li>
+          <li data-needs="youtube"><a data-link="youtube" target="_blank" rel="noopener">YouTube</a></li>
+          <li data-needs="spotify"><a data-link="spotify" target="_blank" rel="noopener">Spotify</a></li>
+          <li data-needs="apple"><a data-link="apple" target="_blank" rel="noopener">Apple Podcasts</a></li>
+          <li data-needs="instagram"><a data-link="instagram" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </nav>
+      <div class="fcol">
+        <h3>Ethos</h3>
+        <ul>
+          <li>The hard part creates real founders</li>
+          <li>Built by ambition, not luck</li>
+          <li>Real stories. No PR spin.</li>
+          <li>Made in the UAE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine"><span>&copy; <span data-year>2026</span> Goal Digger Show. All rights reserved.</span><span>Proudly rooted in the UAE</span><span>Opening film created with AI.</span></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+/* Home page only: the scroll-scrubbed opening film */
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  const smoothstep = (p, e0, e1) => { const t = clamp((p - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
+  function rng(seed) { let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+
+  /* ---------------- split text (once, seeded) ---------------- */
+  $$('.split').forEach((el, n) => {
+    const r = rng(101 + n * 17);
+    const text = el.textContent.trim();
+    const sr = document.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = text;
+    const vis = document.createElement('span');
+    vis.setAttribute('aria-hidden', 'true');
+    const words = text.split(' ');
+    const em = (el.dataset.em || '').split(' ');
+    const br = (el.dataset.br || '').split(' ');
+    words.forEach((word, i) => {
+      const w = document.createElement('span');
+      w.className = em.includes(word) ? 'w gold' : 'w';
+      w.style.setProperty('--th', (i / Math.max(1, words.length) * 0.5 + r() * 0.06).toFixed(3));
+      w.textContent = word;
+      vis.appendChild(w);
+      if (br.includes(word)) vis.appendChild(document.createElement('br'));
+      else if (i < words.length - 1) vis.appendChild(document.createTextNode(' '));
     });
-    observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
-  </script>
-  <script src="app.js"></script>
+    el.textContent = '';
+    el.append(sr, vis);
+  });
 
+  /* ---------------- the hero scrub ---------------- */
+  const hero = $('.hero');
+  const stage = $('#stage');
+  const video = $('#hero');
+  const posterLayer = $('.poster', stage);
+  const ringEl = $('.loader .ring', stage);
+  const hudEl = $('.hero .hud');
+  const hudTxt = $('.hudtxt', stage);
+  const VIDEO_URL = 'assets/hero-scrub.mp4';
+  const POSTER_URL = 'assets/hero-poster.jpg';
+  const VIDEO_BYTES = 3082396;
+
+  const bands = $$('.band', stage).map((el, i, all) => ({
+    el, a: parseFloat(el.dataset.a), b: parseFloat(el.dataset.b),
+    ramp: el.dataset.ramp ? parseFloat(el.dataset.ramp) : null,
+    first: i === 0, last: i === all.length - 1, op: -1, k: -1, on: null
+  }));
+
+  function heroProgress() {
+    const r = hero.getBoundingClientRect();
+    const range = hero.offsetHeight - innerHeight;
+    return range > 0 ? clamp(-r.top / range, 0, 1) : 0;
+  }
+
+  let loadK = 0;
+  function updateCaptions(p) {
+    for (const bd of bands) {
+      const { a, b } = bd;
+      const f = Math.min(0.02, (b - a) / 3);
+      const inE = bd.first ? (p >= a ? 1 : 0) : smoothstep(p, a, a + f);
+      const outE = bd.last ? 0 : smoothstep(p, b - f, b);
+      let op = inE * (1 - outE);
+      let k = clamp((p - a) / (bd.ramp || Math.min(0.025, (b - a) * 0.35)), 0, 1);
+      if (bd.first) { k = Math.max(k, loadK); op = op * clamp(loadK * 1.6, 0, 1); }
+      if (Math.abs(op - bd.op) > 0.002 || (op !== bd.op && (op === 0 || op === 1))) { bd.op = op; bd.el.style.opacity = op.toFixed(3); }
+      if (Math.abs(k - bd.k) >= 0.008 || (k !== bd.k && (k === 0 || k === 1))) { bd.k = k; bd.el.style.setProperty('--k', k.toFixed(3)); }
+      const on = op > 0.5;
+      if (on !== bd.on) { bd.on = on; bd.el.classList.toggle('on', on); }
+    }
+  }
+
+  let lastHud = '', lastHudAt = 0, lastLive = null;
+  function updateHud(p, now) {
+    const live = p > 0.965;
+    if (live !== lastLive) { lastLive = live; hudEl.classList.toggle('live', live); }
+    if (now - lastHudAt < 100) return;
+    const text = live ? 'ON AIR' : 'ON AIR IN ' + Math.max(1, Math.ceil((1 - p) * 6)) + 'S';
+    if (text === lastHud) return;
+    lastHud = text; lastHudAt = now; hudTxt.textContent = text;
+  }
+
+  let seekBusy = false, pendingTime = null;
+  function requestSeek(t) {
+    if (!video.duration || !isFinite(video.duration)) return;
+    t = clamp(t, 0, video.duration - 0.04);
+    if (seekBusy) { pendingTime = t; return; }
+    if (Math.abs(video.currentTime - t) < 0.001) return;
+    seekBusy = true;
+    video.currentTime = t;
+  }
+  video.addEventListener('seeked', () => {
+    seekBusy = false;
+    if (pendingTime !== null) { const t = pendingTime; pendingTime = null; requestSeek(t); }
+  });
+  video.addEventListener('error', () => {
+    seekBusy = false; pendingTime = null;
+    failVideo();
+  });
+
+  let target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true, videoOK = false;
+  function tick(now) {
+    const dt = Math.min(100, now - (lastTick || now));
+    lastTick = now;
+    const k = 0.16;
+    shown += (target - shown) * (1 - Math.pow(1 - k, dt / 16.667));
+    if (Math.abs(target - shown) < 0.0005) { shown = target; rafId = null; lastTick = 0; }
+    else rafId = requestAnimationFrame(tick);
+    if (videoOK) requestSeek(shown * video.duration);
+    updateCaptions(shown);
+    updateHud(shown, now);
+  }
+  function onScroll() {
+    if (!scrubOn) return;
+    target = heroProgress();
+    if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick);
+  }
+  new IntersectionObserver(es => {
+    heroOnScreen = es[0].isIntersecting;
+    if (heroOnScreen && scrubOn) onScroll();
+  }).observe(hero);
+
+  let heroInit = false;
+  function initHeroOnce() {
+    if (heroInit) return;
+    heroInit = true;
+    posterLayer.style.backgroundImage = `url('${POSTER_URL}')`;
+    let started = false;
+    const startBlobFetch = () => { if (started) return; started = true; loadHeroBlob().catch(failVideo); };
+    const img = new Image();
+    img.onload = startBlobFetch; img.onerror = startBlobFetch;
+    img.src = POSTER_URL;
+    setTimeout(startBlobFetch, 4000);
+    // the opening band assembles on its own, then hands over to scroll
+    const t0 = performance.now();
+    const ramp = now => {
+      const t = clamp((now - t0 - 250) / 1400, 0, 1);
+      loadK = 1 - Math.pow(1 - t, 3);
+      updateCaptions(scrubOn ? shown : 0);
+      if (t < 1) requestAnimationFrame(ramp);
+    };
+    requestAnimationFrame(ramp);
+  }
+
+  async function loadHeroBlob() {
+    if (location.protocol === 'file:') throw new Error('file');
+    const ctrl = new AbortController();
+    let watchdog = setTimeout(() => ctrl.abort(), 20000);
+    const res = await fetch(VIDEO_URL, { priority: 'low', signal: ctrl.signal });
+    if (!res.ok || !res.body) throw new Error('fetch');
+    const total = Number(res.headers.get('Content-Length')) || VIDEO_BYTES;
+    const reader = res.body.getReader();
+    const chunks = [];
+    let got = 0, lastRing = 0;
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      clearTimeout(watchdog);
+      watchdog = setTimeout(() => ctrl.abort(), 20000);
+      chunks.push(value);
+      got += value.length;
+      const frac = Math.min(1, got / total);
+      const now = performance.now();
+      if (now - lastRing > 100 || frac === 1) { lastRing = now; ringEl.style.setProperty('--ld', Math.round(126 * (1 - frac))); }
+    }
+    clearTimeout(watchdog);
+    ringEl.style.setProperty('--ld', 0);
+    video.src = URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' }));
+    video.load();
+    video.addEventListener('loadeddata', () => {
+      videoOK = true;
+      requestSeek(heroProgress() * video.duration);
+      stage.classList.add('video-ready');
+    }, { once: true });
+  }
+  function failVideo() {
+    videoOK = false;
+    stage.classList.add('video-failed');
+  }
+
+  const GATES = [
+    '(max-width: 720px)',
+    '(orientation: portrait) and (max-width: 1024px)',
+    '(orientation: portrait) and (pointer: coarse)',
+    '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
+    '(prefers-reduced-motion: reduce)'
+  ];
+  let scrubOn = false;
+  function enableScrub() {
+    if (scrubOn) return; scrubOn = true;
+    initHeroOnce();
+    bands.forEach(b => { b.op = -1; b.k = -1; b.on = null; });
+    target = shown = heroProgress();
+    updateCaptions(shown);
+    onScroll();
+    if (videoOK) requestSeek(shown * video.duration);
+  }
+  function disableScrub() {
+    if (!scrubOn) return; scrubOn = false;
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; lastTick = 0; }
+  }
+  function applyHeroMode() {
+    if (GATES.some(q => matchMedia(q).matches)) disableScrub();
+    else enableScrub();
+  }
+  const MQLS = GATES.map(q => matchMedia(q));
+  MQLS.forEach(m => m.addEventListener('change', applyHeroMode));
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+
+  applyHeroMode();
+})();
+</script>
 </body>
 </html>
