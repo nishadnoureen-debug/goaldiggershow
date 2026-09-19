@@ -44,7 +44,7 @@ main:focus{outline:none}
 
 /* ---------- the environment: one fixed layer behind everything ---------- */
 .env{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:var(--canvas)}
-.env::before,.env::after{content:"";position:absolute;width:90vmax;height:90vmax;border-radius:50%;filter:blur(40px);will-change:transform}
+.env::before,.env::after{content:"";position:absolute;width:90vmax;height:90vmax;border-radius:50%;will-change:transform}
 .env::before{left:-30vmax;top:-20vmax;background:radial-gradient(circle,rgba(201,168,76,.10),rgba(201,168,76,0) 62%);animation:drift1 74s var(--ease-io) -12s infinite alternate}
 .env::after{right:-35vmax;bottom:-40vmax;background:radial-gradient(circle,rgba(139,92,246,.12),rgba(139,92,246,0) 60%);animation:drift2 88s var(--ease-io) -30s infinite alternate}
 @keyframes drift1{to{transform:translate(22vmax,18vmax)}}
@@ -136,7 +136,8 @@ h2.title{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-h
 .sign{margin-top:34px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .sign .name{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
 .sign .role{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--text-secondary)}
-@media (max-width:860px){.host .wrap{grid-template-columns:1fr}.portrait{max-width:480px}}
+@media (max-width:699px){.host .wrap{grid-template-columns:1fr}.portrait{max-width:480px}}
+@media (min-width:700px) and (max-width:900px){.host .wrap{gap:40px}.host h2.title{font-size:clamp(34px,5vw,48px)}}
 
 /* ---------- manifesto ---------- */
 .manifesto .mhead{text-align:center}
@@ -156,7 +157,8 @@ h2.title{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-h
 .pillar .pn{display:grid;place-items:center;width:48px;height:48px;border-radius:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);font-family:var(--display);font-weight:800;font-size:17px;color:var(--accent)}
 .pillar h3{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;line-height:1.2;margin:22px 0 0}
 .pillar p{margin:10px 0 0;font-size:15.5px;color:var(--text-secondary);line-height:1.7}
-@media (max-width:900px){.pillars{grid-template-columns:1fr}}
+@media (max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.pillars{grid-template-columns:1fr}}
 
 /* ---------- topics ---------- */
 .topics .head{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
@@ -208,7 +210,7 @@ li.active .n{color:var(--accent)}
 .platform:hover svg{transform:translateX(4px)}
 .platform.soon{cursor:default;color:var(--text-secondary)}
 .platform.soon:hover{border-color:var(--line);background:rgba(6,6,8,.35)}
-.soontag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;padding:4px 8px;border-radius:6px;border:1px solid var(--line-strong);color:var(--text-secondary)}
+.soontag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;padding:4px 8px;border-radius:6px;border:1px solid var(--line-strong);color:var(--text-secondary)}
 .feature.soon{cursor:default}
 .feature.soon:hover img{transform:none}
 .feature.soon:hover .play{transform:none;background:rgba(6,6,8,.45)}
@@ -528,6 +530,63 @@ body.pinned .steps .sline{transform:none}
 /* ---------- guest: apply section ---------- */
 .apply{text-align:center}
 .apply .bigform{text-align:left}
+
+/* =====================================================================
+   DEVICE TUNING: phones, tablets, laptops and large screens
+   ===================================================================== */
+picture{display:contents}
+a,button{-webkit-tap-highlight-color:transparent}
+@media (max-width:1100px) and (min-width:901px){.nav ul{gap:22px}}
+
+/* touch screens: every tap target at least 44px tall */
+@media (pointer:coarse){
+  .brand{min-height:44px}
+  .textlink{min-height:44px}
+  .nav ul a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px}
+  .fcol ul{gap:0}
+  .fcol li{display:flex;align-items:center;min-height:44px}
+  .fcol a{display:inline-flex;align-items:center;min-height:44px}
+  .platform{min-height:52px}
+  .faq dd a,.clist a{display:inline-block;padding:10px 0;margin:-10px 0}
+}
+/* touch screens: no hover states left stuck after a tap */
+@media (hover:none){
+  .btn-accent:hover,.btn-ghost:hover,.btn-line:hover{transform:none}
+  .btn:hover svg,.platform:hover svg,.textlink:hover svg,.way:hover .go svg{transform:none}
+  .way:hover img,.feature:hover img{transform:none}
+  .feature:hover .play{transform:none;background:rgba(6,6,8,.45)}
+  .prow:hover h3{transform:none}
+  .brand-foot:hover .circle{transform:none}
+  .ep:hover{transform:none}
+}
+/* short landscape phones: keep page heroes compact */
+@media (max-height:500px) and (orientation:landscape){
+  .phero{min-height:0;padding-top:calc(var(--nav-h) + 28px);padding-bottom:40px}
+  .phero h1{font-size:clamp(34px,6vw,54px);margin-top:14px}
+  .phero .lede{margin-top:14px;font-size:16px}
+  .phero .row{margin-top:20px}
+  .phero .pcue{display:none}
+  section.block{padding-top:72px;padding-bottom:72px}
+}
+/* large monitors: use the extra room instead of a narrow column */
+@media (min-width:1800px){
+  body{font-size:18px}
+  .wrap,.phero .inner{max-width:1440px}
+  .divider .wave,.divider .caption{max-width:1600px}
+  .card p,.pillar p,.step p,.qcard p{font-size:16.5px}
+}
+@media (min-width:2400px){
+  :root{--nav-h:84px}
+  body{font-size:19px}
+  .wrap,.phero .inner{max-width:1680px}
+  .nav{padding-left:calc((100vw - 1680px) / 2);padding-right:calc((100vw - 1680px) / 2)}
+  .brand .mark{height:36px}
+  .brand .wordmark{height:18px}
+  .nav ul{gap:40px}
+  .nav ul a{font-size:16px}
+  .btn{font-size:17px}
+  .kicker{font-size:13px}
+}
 
 /* ---------- pause everything on hidden tabs ---------- */
 body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}

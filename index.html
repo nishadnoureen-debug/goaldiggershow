@@ -106,6 +106,19 @@
   .hero{display:none}
   .hero-static{display:grid;background-image:url("assets/hero-ending.jpg")}
 }
+
+/* large monitors: the opening captions grow with the screen */
+@media (min-width:1800px){
+  .b1 h1{font-size:clamp(100px,5.2vw,150px)}
+  .b2 p{font-size:clamp(74px,3.9vw,112px)}
+  .b3 p{font-size:clamp(46px,2.5vw,68px)}
+  .b4 h2{font-size:clamp(112px,5.6vw,164px)}
+  .b4{width:min(92vw,1400px);--sa:.9}
+  .b4 .sub{font-size:24px}
+  .band .kicker{font-size:14px}
+  .hud,.loader{font-size:13px}
+}
+@media (min-aspect-ratio:21/9){.b4{--sa:.95}.b4::before{inset:-50% -24% -70%}}
 </style>
 </head>
 <body>
@@ -217,7 +230,7 @@
   <section class="block host reveal" id="host" data-live>
     <div class="wrap">
       <div class="portrait part">
-        <img src="assets/host.jpg" alt="The host of Goal Digger Show in a navy suit, seated in a dark studio lit in blue" width="1280" height="1920" loading="lazy" decoding="async">
+        <picture><source type="image/webp" srcset="assets/host-640.webp 640w, assets/host-960.webp 960w, assets/host.webp 1280w" sizes="(max-width: 699px) min(480px, 92vw), 40vw"><img src="assets/host.jpg" srcset="assets/host-640.jpg 640w, assets/host-960.jpg 960w, assets/host.jpg 1280w" sizes="(max-width: 699px) min(480px, 92vw), 40vw" alt="The host of Goal Digger Show in a navy suit, seated in a dark studio lit in blue" width="1280" height="1920" loading="lazy" decoding="async"></picture>
         <div class="sweep" aria-hidden="true"></div>
         <div class="shutter" aria-hidden="true"></div>
         <span class="tag chip" aria-hidden="true">HOST · GOAL DIGGER SHOW</span>
@@ -280,7 +293,7 @@
       </div>
       <div class="grid">
         <a class="feature part" style="--d:2" data-link="youtube" target="_blank" rel="noopener">
-          <img src="assets/host-wide.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <picture><source type="image/webp" srcset="assets/host-wide-960.webp 960w, assets/host-wide-1280.webp 1280w, assets/host-wide.webp 1920w" sizes="(max-width: 900px) 92vw, 55vw"><img src="assets/host-wide.jpg" srcset="assets/host-wide-960.jpg 960w, assets/host-wide-1280.jpg 1280w, assets/host-wide.jpg 1920w" sizes="(max-width: 900px) 92vw, 55vw" alt="" width="1920" height="1080" loading="lazy" decoding="async"></picture>
           <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
           <span class="meta"><span>LATEST EPISODE · WATCH ON YOUTUBE</span><span class="strip" aria-hidden="true"></span></span>
           <span class="sr-only">Watch the latest episode on YouTube</span>
@@ -315,15 +328,15 @@
       </div>
       <div class="ways">
         <a class="way part" style="--d:3" href="episodes.html">
-          <img src="assets/host-wide.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <picture><source type="image/webp" srcset="assets/host-wide-960.webp 960w, assets/host-wide-1280.webp 1280w, assets/host-wide.webp 1920w" sizes="(max-width: 900px) 92vw, 30vw"><img src="assets/host-wide.jpg" srcset="assets/host-wide-960.jpg 960w, assets/host-wide-1280.jpg 1280w, assets/host-wide.jpg 1920w" sizes="(max-width: 900px) 92vw, 30vw" alt="" width="1920" height="1080" loading="lazy" decoding="async"></picture>
           <div class="wbody"><span class="kicker">Watch and listen</span><h3>The episodes</h3><p>Every conversation, sorted by the thing you're stuck on.</p><span class="go">Browse episodes <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </a>
         <a class="way part" style="--d:4" href="guest.html">
-          <img src="assets/still-studio.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <picture><source type="image/webp" srcset="assets/still-studio-960.webp 960w, assets/still-studio-1280.webp 1280w, assets/still-studio.webp 1920w" sizes="(max-width: 900px) 92vw, 30vw"><img src="assets/still-studio.jpg" srcset="assets/still-studio-960.jpg 960w, assets/still-studio-1280.jpg 1280w, assets/still-studio.jpg 1920w" sizes="(max-width: 900px) 92vw, 30vw" alt="" width="1920" height="1080" loading="lazy" decoding="async"></picture>
           <div class="wbody"><span class="kicker">Tell your story</span><h3>Be a guest</h3><p>Built something in the UAE? Take the seat and tell it straight.</p><span class="go">Apply to be a guest <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </a>
         <a class="way part" style="--d:5" href="contact.html">
-          <img src="assets/still-skyline.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <picture><source type="image/webp" srcset="assets/still-skyline-960.webp 960w, assets/still-skyline-1280.webp 1280w, assets/still-skyline.webp 1920w" sizes="(max-width: 900px) 92vw, 30vw"><img src="assets/still-skyline.jpg" srcset="assets/still-skyline-960.jpg 960w, assets/still-skyline-1280.jpg 1280w, assets/still-skyline.jpg 1920w" sizes="(max-width: 900px) 92vw, 30vw" alt="" width="1920" height="1080" loading="lazy" decoding="async"></picture>
           <div class="wbody"><span class="kicker">Build with us</span><h3>Partner with us</h3><p>Put your brand in front of the people building the UAE.</p><span class="go">Ways to partner <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </a>
       </div>
@@ -347,7 +360,7 @@
   </section>
 
   <section class="subscribe reveal" id="subscribe" data-live>
-    <img class="bg" src="assets/still-studio.jpg" alt="" loading="lazy" decoding="async">
+    <picture><source type="image/webp" srcset="assets/still-studio-960.webp 960w, assets/still-studio-1280.webp 1280w, assets/still-studio.webp 1920w" sizes="100vw"><img class="bg" src="assets/still-studio.jpg" srcset="assets/still-studio-960.jpg 960w, assets/still-studio-1280.jpg 1280w, assets/still-studio.jpg 1920w" sizes="100vw" alt="" width="1920" height="1080" loading="lazy" decoding="async"></picture>
     <canvas class="dust" aria-hidden="true"></canvas>
     <div class="wrap block subwrap">
       <span class="kicker part">Real struggles. Real wins.</span>
